@@ -1,0 +1,61 @@
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+
+public class Userdata {
+public static void main(String args[]) {
+// CSVに書き込む内容を記述
+int[] number = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+String[] userName = {"阿部", "鈴木", "伊藤", "田中", "太田", "佐々木", "上野", "馬場", "榎本", "和田"};
+String[] userSex = {"男", "男", "女", "女", "男", "男", "男", "女", "男", "男"};
+String[] userDepartment = {"営業部", "総務部", "人事部", "営業部", "開発部", "開発部", "人事部", "営業部", "開発部", "総務部"};
+int[] userSalary = {280000, 320000, 250000, 330000, 210000, 250000, 320000, 280000, 250000, 210000};
+// exportCsvクラスに渡す
+exportCsv(number, userName, userSex, userDepartment, userSalary);
+}
+
+public static void exportCsv(int[] number, String[] userName, String[] userSex, String[] userDepartment, int[] userSalary){
+    try {
+        // 出力ファイルの作成
+        FileWriter fw = new FileWriter("Userdata.csv", false);
+        // PrintWriterクラスのオブジェクトを生成
+        PrintWriter pw = new PrintWriter(new BufferedWriter(fw));
+
+        // ヘッダーの指定
+        pw.print("社員番号");
+        pw.print(",");
+        pw.print("名前");
+        pw.print(",");
+        pw.print("性別");
+        pw.print(",");
+        pw.print("部署");
+        pw.print(",");
+        pw.print("給料");
+        pw.println();
+
+        // データを書き込む
+        for(int i = 0; i < number.length; i++){
+            pw.print(number[i]);
+            pw.print(",");
+            pw.print(userName[i]);
+            pw.print(",");
+            pw.print(userSex[i]);
+            pw.print(",");
+            pw.print(userDepartment[i]);
+            pw.print(",");
+            pw.print(userSalary[i]);
+            pw.println();
+        }
+
+        // ファイルを閉じる
+        pw.close();
+
+        // 出力確認用のメッセージ
+        System.out.println("csvファイルを出力しました");
+
+    // 出力に失敗したときの処理
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}
